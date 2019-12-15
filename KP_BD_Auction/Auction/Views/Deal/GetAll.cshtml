@@ -1,0 +1,66 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminPage.cshtml";
+}
+@model IEnumerable<Auction.Models.DealModel>
+
+<center><h1>Deals</h1></center>
+<p>
+    @Html.ActionLink("Create New", "Create", "Deal", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Buyer_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seller_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Auction_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DealState_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Buyer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Seller)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Item)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Auction)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DealState)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td class="tbl-keys" align="right">
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { onclick = "return confirm('Are sure wants to delete?');" })
+        </td>
+    </tr>
+}
+
+</table>

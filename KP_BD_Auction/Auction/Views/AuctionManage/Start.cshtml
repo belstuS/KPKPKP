@@ -1,0 +1,75 @@
+﻿@{
+    Layout = "~/Views/Shared/_AuctionsPage.cshtml";
+}
+@model Auction.ViewModel.StartViewModel
+
+@{
+    if (Model.deals.Count() != 0)
+    {
+        Auction.Models.DealModel upperDeal = Model.deals.First();
+        <div class="auct-block" style="margin: 0 40% 5px 40%; text-align: left;">
+            Item: @upperDeal.Item<br />
+            Seller: @upperDeal.Seller<br />
+        </div>
+
+        @Html.DropDownListFor(
+                             model => model.currentByuer,
+                             new SelectList(Model.participants, "Id", "FullName", Model.currentByuer),
+                             new { @class = "form-control" })
+
+        <button onclick="refreshInfo(@(upperDeal.Id), @ViewBag.dealStep)" type="button" class="btn btn-primary">Raise</button>
+        @Html.ActionLink("Next", "Next", "AuctionManage", new { auctionId = ViewBag.AuctionId, dealId = upperDeal.Id }, new { @class = "btn btn-primary" })
+        <div><b>Current price:</b> <div id="deal-info">@ViewBag.startPrice</div></div>
+        <div><b>Next:</b> <div id="deal-info-next">@(ViewBag.startPrice + ViewBag.dealStep)</div></div>
+
+    }
+    else
+    {
+        <center>
+            <p>
+                @Html.ActionLink("End auction", "GetAuctions", "AuctionManage", null, new { @class = "btn btn-primary" })
+            </p>
+        </center>
+    }
+
+    if (Model.deals.Count() > 1)
+    {
+        <br />
+        <hr />
+        <br />
+        for (int i = 0; i < Model.deals.Count() - 1; i++)
+        {
+            <div class="auct-block" style="margin: 0 40% 5px 40%; text-align: left;">
+                Item: @Model.deals.ElementAt(i + 1).Item<br />
+                Seller: @Model.deals.ElementAt(i + 1).Item<br />
+            </div>
+        }
+    }
+}
+
+
+<script>
+    let price = @ViewBag.startPrice;
+    function refreshInfo(dId, dealStep) {
+        let bId = +document.getElementById('currentByuer').value;
+
+        $.ajax({
+            url: `/AuctionManage/getItemInfo/`,
+            type: 'POST',
+            data: JSON.stringify({ dealId: dId, byuerId: bId, stepRate: price}),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            error: function (xhr) {
+                alert('Error: ' + xhr.statusText);
+            },
+            success: function (result) {
+                price += @ViewBag.dealStep;
+                $("#deal-info").text(`${price}`);
+                $("#deal-info-next").text(`${price + @ViewBag.dealStep}`);
+            },
+            async: true,
+            processData: false
+        });
+    }
+
+</script>

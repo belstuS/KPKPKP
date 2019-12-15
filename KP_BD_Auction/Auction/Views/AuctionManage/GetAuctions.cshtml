@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Views/Shared/_AuctionsPage.cshtml";
+}
+@model IEnumerable<Auction.Models.AuctionModel>
+
+@{ 
+    int i = 0;
+    foreach (var item in Model.Reverse())
+    {
+        <div class="auct-block">
+            @(++i).<center>Auction:</center>
+            Date: @Html.DisplayFor(modelItem => item.Date)<br />
+            Start time: @Html.DisplayFor(modelItem => item.StartTime)<br />
+            @Html.ActionLink("Edit deals", "AddDeals", new { id = item.Id })
+        </div>
+    }
+}

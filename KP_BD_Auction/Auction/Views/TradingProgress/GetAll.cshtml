@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminPage.cshtml";
+}
+@model IEnumerable<Auction.Models.TradingProgressModel>
+
+<center><h1>Trading progress</h1></center>
+<p>
+    @Html.ActionLink("Create New", "Create", "TradingProgress", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Deal_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Buyer_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StepTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StepRate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Deal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Buyer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StepTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StepRate)
+        </td>
+        <td class="tbl-keys" align="right">
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { onclick = "return confirm('Are sure wants to delete?');" })
+        </td>
+    </tr>
+}
+
+</table>

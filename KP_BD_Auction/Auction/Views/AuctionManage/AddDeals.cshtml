@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "~/Views/Shared/_AuctionsPage.cshtml";
+}
+@model IEnumerable<Auction.Models.DealModel>
+
+<center>
+    <p>
+        @Html.ActionLink("Start auction", "Start", "AuctionManage", new  { id = ViewBag.AuctionId }, new { @class = "btn btn-primary" })
+    </p>
+</center>
+<p>
+    @Html.ActionLink("Back", "GetAuctions")
+</p>
+<p>
+    @Html.ActionLink("Add", "NewDeal", new { id =  ViewBag.AuctionId }, new { @class = "btn btn-primary" })
+</p>
+@{
+    int i = 0;
+    foreach (var item in Model.Reverse())
+    {
+    <div class="auct-block"  style="margin: 0 70% 5px 1px; text-align: left;">
+        @(++i).<br />
+        Item: @Html.DisplayFor(modelItem => item.Item)<br />
+        Seller: @Html.DisplayFor(modelItem => item.Seller)<br />
+    </div>
+    }
+}
+

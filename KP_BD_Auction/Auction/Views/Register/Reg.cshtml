@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/Views/Shared/_RegPage.cshtml";
+}
+
+@model Auction.Models.RegisterModel
+
+@using (Html.BeginForm("Register", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <fieldset>
+        <div class="control-group">
+            <label class="control-label" for="Username">
+                Username
+            </label>
+            <div class="controls">
+                @Html.ValidationMessage("Username")
+                @Html.TextBox("Username", Model.Username)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="FirstName">
+                Password
+            </label>
+            <div class="controls">
+                @Html.ValidationMessage("Password")
+                @Html.Password("Password", Model.Password)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="Role">
+                Role
+            </label>
+            <div class="controls">
+                @Html.ValidationMessage("Role")
+                @Html.TextBox("Role", Model.Role)
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                Register
+            </button>
+            @Html.ActionLink("Cancel", "Index", null, null, new { @class = "btn" })
+        </div>
+    </fieldset>
+}

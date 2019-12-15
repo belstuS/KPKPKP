@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main page</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @if (Session["Role"].ToString() != "Admin")
+    {
+        Response.Redirect("~/Home/Index");
+    }
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column pagination btn-group">
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <h3 class="masthead-brand">Auction</h3>
+                <nav class="nav nav-masterhead justify-content-center">
+                    <a class="nav-link active" @Html.ActionLink("Auctions", "GetAll", "Auction", null, new { @class = "btn btn-primary" })></a>
+                    <a class="nav-link active" @Html.ActionLink("Deals", "GetAll", "Deal", null, new { @class = "btn btn-primary" })></a>
+                    <a class="nav-link active" @Html.ActionLink("DealStates", "GetAll", "DealState", null, new { @class = "btn btn-primary" })></a>
+                    <a class="nav-link active" @Html.ActionLink("ItemCategories", "GetAll", "ItemCategory", null, new { @class = "btn btn-primary" })></a>
+                    <a class="nav-link active" @Html.ActionLink("Items", "GetAll", "Item", null, new { @class = "btn btn-primary" })></a>
+                    <a class="nav-link active" @Html.ActionLink("Participants", "GetAll", "Participant", null, new { @class = "btn btn-primary" })></a>
+                    <a class="nav-link active" @Html.ActionLink("TradingProgresses", "GetAll", "TradingProgress", null, new { @class = "btn btn-primary" })></a>
+                </nav>
+            </div>
+            @Html.ActionLink("Exit", "Exit", "Home", null, new { @class = "btn btn-primary", @id = "a-exit-btn" })
+            @RenderBody()
+
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)
+        </header>
+    </div>
+
+    @*
+        @if (Session["Role"].ToString() != "Admin")
+        {
+            Response.Redirect("~/Home/Index");
+        }
+        <div class="pagination btn-group">
+            @Html.ActionLink("Auctions", "GetAll", "Auction", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Deals", "GetAll", "Deal", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("DealStates", "GetAll", "DealState", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("ItemCategories", "GetAll", "ItemCategory", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Items", "GetAll", "Item", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Participants", "GetAll", "Participant", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("TradingProgresses", "GetAll", "TradingProgress", null, new { @class = "btn btn-primary" })
+        </div>
+            @Html.ActionLink("Exit", "Exit", "Home", null, new { @class = "btn btn-primary", @id = "a-exit-btn" })
+        @RenderBody()
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+
+    *@
+</body>
+        </html>

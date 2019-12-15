@@ -1,0 +1,55 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminPage.cshtml";
+}
+@model IEnumerable<Auction.Models.ItemModel>
+
+<center><h1>Items</h1></center>
+<p>
+    @Html.ActionLink("Create New", "Create", "Item", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartedPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceGrowth)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td id="descr">
+            @Html.DisplayFor(modelItem => item.Description, new { htmlAttributes = new { @id = "desc_out"} })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartedPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceGrowth)
+        </td>
+        <td class="tbl-keys" align="right">
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { onclick = "return confirm('Are sure wants to delete?');" })
+        </td>
+    </tr>
+}
+
+</table>
+
