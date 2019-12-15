@@ -57,22 +57,28 @@ go
 
 
 
-create procedure isValidPassword()
+create procedure IsPasswordValid()
 as
-declare @P1 nvarchar(50)
-declare @P2 nvarchar(50) 
+declare @Password nvarchar(50)
+declare @UserName nvarchar(50) 
 
 begin
-select Password from Users where Password = @P1;
-select tmpPass from TMP where tmpPass = @P2;
+  declare @hashedPassword nvarchar(50);
 
-if(@P1 = @P2)
-return 1;
-else
-return 0;
+  select 
+    @hashedPassword = Users.Password
+  from Users
+  where Users.Login = @UserName;
+
+  set @Password = GetPasswordHash(@Password);
+
+  if(@hashedPassword = @Password)
+  return 1;
+  else
+  return 0;
 end;
 
---drop procedure isValidPassword
+--drop procedure IsPasswordValid
 go
 
 CREATE procedure HashTmpPass

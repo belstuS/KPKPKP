@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using Auction.Models;
 using System.Data;
+using System.Linq;
 
 namespace Auction.Repositories
 {
@@ -21,6 +22,24 @@ namespace Auction.Repositories
                 da.Fill(dt);
                 
                 return FillTable(dt);
+            }
+        }
+
+        public UserModel GetUserByLogin(string login)
+        {
+            using (SqlConnection db = SQLConnector.Connect())
+            {
+                db.Open();
+
+                SqlCommand com = new SqlCommand("GetUserByLogin", db);
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.AddWithValue("@Login", login);
+                com.ExecuteNonQuery();
+                SqlDataAdapter da = new SqlDataAdapter(com);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                return FillTable(dt).FirstOrDefault();
             }
         }
 
@@ -48,12 +67,12 @@ namespace Auction.Repositories
 
                 SqlCommand com = new SqlCommand("IsPasswordValid", db);
                 com.CommandType = CommandType.StoredProcedure;
-                com.Parameters.AddWithValue("@Pass", ModelObjects.Password );
+                com.Parameters.AddWithValue("@Password", ModelObjects.Password );
                 com.Parameters.AddWithValue("@UserName", ModelObjects.Username);
 
-                if (com.ExecuteNonQuery() == -1)
-                    return false;
-                return true;
+                var isPasswordValid = Convert.ToBoolean(com.ExecuteScalar());
+
+                return isPasswordValid;
             }
         }
 

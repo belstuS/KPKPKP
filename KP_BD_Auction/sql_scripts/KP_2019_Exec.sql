@@ -138,6 +138,17 @@ end;
 
 
 go
+create procedure GetUserByLogin(
+	@Login nvarchar(50)
+)
+as
+begin
+	select top(1) * from Users
+	where Users.Login = @Login;
+end;
+
+
+go
 create procedure EndAuction(
 	@Id int
 )

@@ -24,21 +24,13 @@ namespace Auction.Controllers
                     UserRepository repository = new UserRepository();
 
                     bool isPassworValid = repository.IsPasswordValid(ModelObject);
-                    IEnumerable<UserModel> users = repository.GetAll();
 
-                    /*foreach (var obj in users)
-                    {
-                        if (ModelObject.Username == obj.Username && ModelObject.Password == obj.Password)
-                        {
-                            return Authorize(obj.Role);
-                        }
-                    }*/
-                   
                     if (isPassworValid)
                     {
-                        return Authorize(obj.Role);
-                    }
+                        var currentUser = repository.GetUserByLogin(ModelObject.Username);
 
+                        return Authorize(currentUser.Role);
+                    }
                 }
 
                 return View();
