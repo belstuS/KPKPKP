@@ -65,8 +65,29 @@ begin
 end;
 
 
-drop procedure  GetItems,
-				GetItemById,
-				AddItem,
-				UpdateItem,
-				DeleteItem;
+
+INSERT INTO [dbo].[Item]
+           ([Name]
+           ,[Description]
+           ,[Category_Id]
+           ,[StartedPrice]
+           ,[PriceGrowth])
+     VALUES
+		   ('IPhone', 'Phone', 1, 2000, 50),
+           ('BMW', '', 1, 40000, 500),
+           ('Baack', '', 1, 200, 10),
+           ('Gold pen', '', 1, 5000, 200),
+           ('Flwoers', '', 1, 5, 1),
+           ('Tony Stark toy', '', 1, 100000, 100000),
+           ('Clock', '', 1, 250, 5),
+           ('Sandwich', '', 1, 1, 1),
+           ('Gitara', '', 1, 150, 15),
+           ('Virginity', '', 1, 1000000, 100000),
+           ('Elephant', '', 1, 700000, 7000)
+
+
+--drop procedure  GetItems,
+--				GetItemById,
+--				AddItem,
+--				UpdateItem,
+--				DeleteItem;

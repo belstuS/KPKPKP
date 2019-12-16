@@ -162,3 +162,4 @@ C:\Users\User\Desktop\KPKPKP\KP_BD_Auction\Auction\bin\ru\System.Web.Optimizatio
 C:\Users\User\Desktop\KPKPKP\KP_BD_Auction\Auction\obj\Debug\Auction.csproj.CopyComplete
 C:\Users\User\Desktop\KPKPKP\KP_BD_Auction\Auction\obj\Debug\Auction.dll
 C:\Users\User\Desktop\KPKPKP\KP_BD_Auction\Auction\obj\Debug\Auction.pdb
+C:\Users\User\Desktop\KPKPKP\KP_BD_Auction\Auction\obj\Debug\Auction.csprojAssemblyReference.cache
