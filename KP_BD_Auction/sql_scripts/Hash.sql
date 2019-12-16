@@ -1,11 +1,6 @@
 use KP_2019
 
-create table TMP (Id int identity(1, 1)	not null, tmpPass nvarchar(50));
-
---delete  TMP
 go
-
---delete Users
 
 CREATE FUNCTION GetPasswordHash(@password nvarchar(50))
 RETURNS nvarchar(50)
@@ -57,11 +52,11 @@ go
 
 
 
-create procedure IsPasswordValid()
+create procedure IsPasswordValid(
+	@Password nvarchar(50),
+	@UserName nvarchar(50) 
+)
 as
-declare @Password nvarchar(50)
-declare @UserName nvarchar(50) 
-
 begin
   declare @hashedPassword nvarchar(50);
 
@@ -70,62 +65,13 @@ begin
   from Users
   where Users.Login = @UserName;
 
-  set @Password = GetPasswordHash(@Password);
+  set @Password = dbo.GetPasswordHash(@Password);
 
   if(@hashedPassword = @Password)
-  return 1;
+  select 1;
   else
-  return 0;
+  select 0;
 end;
 
 --drop procedure IsPasswordValid
-go
-
-CREATE procedure HashTmpPass
-as
-begin
-	DECLARE @TMPId int
-	Declare @password nvarchar(50)
-
-   DECLARE my_cur CURSOR FOR 
-     SELECT id
-     FROM TMP
-   
-   OPEN my_cur
-
-   FETCH NEXT FROM my_cur INTO @TMPId
-
-   WHILE @@FETCH_STATUS = 0
-   BEGIN
-        select top(1) 
-			@password = [tmpPass]
-		from TMP
-		where TMP.Id = @TMPId;
-
-		set @password = dbo.GetPasswordHash(@password);
-
-        update TMP
-		set tmpPass = @password
-		where TMP.Id = @TMPId;
-
-        FETCH NEXT FROM my_cur INTO @TMPId
-   END
-   
-   CLOSE my_cur
-   DEALLOCATE my_cur
-
-   --exec isValidPassword;
-end;
---drop procedure HashTmpPass;
---exec HashTmpPass;
-go
--- drop procedure AddTmpPass
-go
-create procedure AddTmpPass(
-@Pass nvarchar(50))
-as
-begin 
-insert into TMP(tmpPass) values(@Pass);
-exec HashTmpPass;
-	end;
 go
